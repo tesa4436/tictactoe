@@ -111,6 +111,11 @@ void print_reply_code_meaning(const unsigned char ret_code)
 	}
 }
 
+void print_options()
+{
+	
+}
+
 int get_coordinates_from_buffer(char *buffer, unsigned long *x, unsigned long *y)
 {
 	if(!x || !y) {
@@ -534,7 +539,7 @@ int main(int argc, char *argv[])
 			memset(buffer, 0 , BUFFER_LENGTH);
 			memset(command, 0, BUFFER_LENGTH);
 			if(!session_details->current_game) {
-				printf("enter an operation number: ");
+				printf("enter an operation number (1 - log out,\n3 - join a random game,\n4 - create a new game): ");
 				fgets(command, BUFFER_LENGTH, stdin);
 				opcode = atoi(command);
 				if(handler[opcode]) {
@@ -551,7 +556,14 @@ int main(int argc, char *argv[])
 					continue;
 				}
 			} else {
-				ret_code = handler[ACTION_REQUEST](buffer, &session_details);
+				printf("enter an operation number (5 - leave the game,\n6 - make a move): ");
+				fgets(command, BUFFER_LENGTH, stdin);
+				opcode = atoi(command);
+				if(opcode == 5 || opcode == 6) {
+					ret_code = handler[opcode](buffer, &session_details);
+				} else {
+					continue;
+				}
 				if(ret_code == INTERNAL_CLIENT_ERROR) {
 					fprintf(stderr, "error occured, exiting...\n");
 					exit(ret_code);

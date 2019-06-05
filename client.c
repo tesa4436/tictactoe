@@ -539,7 +539,7 @@ int main(int argc, char *argv[])
 			memset(buffer, 0 , BUFFER_LENGTH);
 			memset(command, 0, BUFFER_LENGTH);
 			if(!session_details->current_game) {
-				printf("enter an operation number (1 - log out,\n3 - join a random game,\n4 - create a new game): ");
+				printf("enter an operation number:\n1 - log out,\n3 - join a random game,\n4 - create a new game: ");
 				fgets(command, BUFFER_LENGTH, stdin);
 				opcode = atoi(command);
 				if(handler[opcode]) {
@@ -556,7 +556,7 @@ int main(int argc, char *argv[])
 					continue;
 				}
 			} else {
-				printf("enter an operation number (5 - leave the game,\n6 - make a move): ");
+				printf("enter an operation number\n5 - leave the game,\n6 - make a move: ");
 				fgets(command, BUFFER_LENGTH, stdin);
 				opcode = atoi(command);
 				if(opcode == 5 || opcode == 6) {
